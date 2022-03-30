@@ -50,6 +50,9 @@ export {
   useCurrentSidebarCategory,
   isActiveSidebarItem,
   useSidebarBreadcrumbs,
+  useDocsVersionCandidates,
+  useLayoutDoc,
+  useLayoutDocsSidebar,
 } from './utils/docsUtils';
 
 export {useTitleFormatter} from './utils/generalUtils';
@@ -141,10 +144,10 @@ export {
 
 export {useNavbarMobileSidebar} from './contexts/navbarMobileSidebar';
 export {
-  useNavbarSecondaryMenu,
   NavbarSecondaryMenuFiller,
   type NavbarSecondaryMenuComponent,
-} from './contexts/navbarSecondaryMenu';
+} from './contexts/navbarSecondaryMenu/content';
+export {useNavbarSecondaryMenu} from './contexts/navbarSecondaryMenu/display';
 
 export {useBackToTopButton} from './hooks/useBackToTopButton';
 export {useHideableNavbar} from './hooks/useHideableNavbar';
