@@ -45,6 +45,7 @@ export type I18nLocaleConfig = {
   label: string;
   htmlLang: string;
   direction: string;
+  calendar: string;
 };
 
 export type I18nConfig = {
@@ -618,4 +619,12 @@ export type TagsListItem = Tag & {
 export type TagModule = TagsListItem & {
   /** The tags list page's permalink. */
   allTagsPath: string;
+};
+
+export type UseDataOptions = {
+  /**
+   * Throw an error, or simply return undefined if the data cannot be found. Use
+   * `true` if you are sure the data must exist.
+   */
+  failfast?: boolean;
 };
