@@ -156,6 +156,7 @@ declare module '@theme/CodeBlock' {
     readonly metastring?: string;
     readonly title?: string;
     readonly language?: string;
+    readonly showLineNumbers?: boolean;
   }
 
   export default function CodeBlock(props: Props): JSX.Element;
@@ -795,7 +796,9 @@ declare module '@theme/NavbarItem/DocNavbarItem' {
     readonly docsPluginId?: string;
   }
 
-  export default function DocsSidebarNavbarItem(props: Props): JSX.Element;
+  export default function DocsSidebarNavbarItem(
+    props: Props,
+  ): JSX.Element | null;
 }
 
 declare module '@theme/NavbarItem/DocSidebarNavbarItem' {
