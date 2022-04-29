@@ -1004,6 +1004,15 @@ const Users: User[] = [
     tags: ['opensource'],
   },
   {
+    title: 'Memgraph',
+    description:
+      'Memgraph is the platform for graph computation on streaming data',
+    preview: require('./showcase/memgraph.png'),
+    website: 'https://docs.memgraph.com/',
+    source: 'https://github.com/memgraph/docs',
+    tags: ['design', 'large', 'opensource', 'product','versioning'],
+  },
+  {
     title: 'Metro',
     description: 'The JavaScript bundler for React Native',
     preview: require('./showcase/metro.png'),
@@ -1329,6 +1338,15 @@ const Users: User[] = [
     website: 'https://questdb.io',
     source: 'https://github.com/questdb/questdb.io',
     tags: ['opensource', 'favorite', 'design', 'large'],
+  },
+  {
+    title: 'RaspiSuite',
+    description:
+      'A suite of mobile apps to leverage the full potential of your Raspberry Pi effortlessly.',
+    preview: require('./showcase/raspisuite.png'),
+    website: 'https://raspisuite.com',
+    source: null,
+    tags: ['design', 'product'],
   },
   {
     title: 'Rivalis',

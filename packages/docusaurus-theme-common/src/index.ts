@@ -55,7 +55,10 @@ export {
   useDocsVersionCandidates,
   useLayoutDoc,
   useLayoutDocsSidebar,
+  useDocRouteMetadata,
 } from './utils/docsUtils';
+
+export {useSkipToContent} from './utils/a11yUtils';
 
 export {useTitleFormatter} from './utils/generalUtils';
 
