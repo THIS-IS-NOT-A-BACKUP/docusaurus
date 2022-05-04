@@ -219,7 +219,7 @@ declare module '@theme/CodeBlock/Line' {
 
   export interface Props {
     readonly line: Token[];
-    readonly highlight: boolean;
+    readonly classNames: string[] | undefined;
     readonly showLineNumbers: boolean;
     readonly getLineProps: GetLineProps;
     readonly getTokenProps: GetTokenProps;
@@ -997,6 +997,7 @@ declare module '@theme/PaginatorNavLink' {
   export interface Props extends Omit<PropNavigationLink, 'title'> {
     readonly title: ReactNode;
     readonly subLabel?: JSX.Element;
+    readonly isNext?: boolean;
   }
 
   export default function PaginatorNavLink(props: Props): JSX.Element;

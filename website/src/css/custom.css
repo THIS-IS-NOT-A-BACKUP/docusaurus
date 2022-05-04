@@ -25,7 +25,7 @@ html[data-theme='dark'] {
   --site-color-feedback-background: #f0f8ff;
   --site-color-favorite-background: #1d1e1e;
   --site-color-checkbox-checked-bg: hsl(167deg 56% 73% / 10%);
-  --docusaurus-highlighted-code-line-bg: rgb(66 66 66 / 30%);
+  --docusaurus-highlighted-code-line-bg: rgb(66 66 66 / 35%);
 }
 
 [data-theme='light'] {
@@ -206,4 +206,12 @@ div[class^='announcementBar_'] {
 .dropdown-archived-versions {
   font-size: 0.875rem;
   padding: 0.2rem 0.5rem;
+}
+
+.code-block-error-line {
+  background-color: #ff000020;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid #ff000080;
 }
