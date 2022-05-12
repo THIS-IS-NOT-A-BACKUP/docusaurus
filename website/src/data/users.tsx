@@ -178,6 +178,14 @@ const Users: User[] = [
     tags: [],
   },
   {
+    title: "Akara's blog",
+    description: 'Personal frontend blog for learning',
+    preview: require('./showcase/akara-blog.png'),
+    website: 'https://messiahhh.github.io/blog/',
+    source: 'https://github.com/messiahhh/blog',
+    tags: ['opensource', 'personal'],
+  },
+  {
     title: 'Algolia Docsearch',
     description:
       'The best search experience for docs, integrates in minutes, for free',
@@ -2160,6 +2168,14 @@ const Users: User[] = [
     website: 'https://docs.antonpalmqvist.com/',
     source: null,
     tags: ['product'],
+  },
+  {
+    title: 'Vital',
+    description: 'Wearables and Lab test API for digital health companies.',
+    preview: require('./showcase/vital.png'),
+    website: 'https://docs.tryvital.io',
+    source: 'https://github.com/tryVital/vital-docs-new',
+    tags: ['opensource', 'product', 'design'],
   },
   {
     title: 'Vue NodeGui',
