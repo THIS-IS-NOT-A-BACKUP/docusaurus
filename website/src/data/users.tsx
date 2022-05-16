@@ -372,6 +372,14 @@ const Users: User[] = [
     tags: ['opensource'],
   },
   {
+    title: 'CodeSweetly',
+    description: 'The Home of Simplified Web Development Tutorials',
+    preview: require('./showcase/codesweetly.png'),
+    website: 'https://codesweetly.com/',
+    source: null,
+    tags: ['personal'],
+  },
+  {
     title: 'CodeYourFuture',
     description:
       'The syllabus for CodeYourFuture - a free code school for refugees, asylum seekers and disadvantaged people',
@@ -859,6 +867,14 @@ const Users: User[] = [
     preview: require('./showcase/home-assistant.png'),
     website: 'https://developers.home-assistant.io/',
     source: 'https://github.com/home-assistant/developers.home-assistant',
+    tags: ['opensource'],
+  },
+  {
+    title: 'httpin',
+    description: 'Decode an HTTP request into a custom struct in Go',
+    preview: require('./showcase/httpin.png'),
+    website: 'https://ggicci.github.io/httpin/',
+    source: 'https://github.com/ggicci/httpin/tree/documentation/docs',
     tags: ['opensource'],
   },
   {
@@ -2076,6 +2092,14 @@ const Users: User[] = [
     website: 'https://thediffpodcast.com',
     source: null,
     tags: ['meta'],
+  },
+  {
+    title: '30 Days Of SWA',
+    description: 'A 30-Day Developer Guide to Azure Static Web Apps',
+    preview: require('./showcase/30-days-swa.png'),
+    website: 'https://www.azurestaticwebapps.dev',
+    source: 'https://github.com/staticwebdev/30DaysOfSWA/tree/main/www',
+    tags: ['opensource', 'product'],
   },
   {
     title: 'TiDB Community Books',
