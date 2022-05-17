@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./lib/.tsbuildinfo-client",
+    "rootDir": "src",
+    "outDir": "lib",
+    "module": "esnext",
+    "target": "esnext"
+  },
+  "include": [
+    "src/theme/",
+    "src/*.d.ts",
+    "src/registerSw.ts",
+    "src/renderReloadPopup.tsx"
+  ]
+}

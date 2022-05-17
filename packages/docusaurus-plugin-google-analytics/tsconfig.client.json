@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": "./lib/.tsbuildinfo-client",
+    "module": "esnext",
+    "target": "esnext",
+    "rootDir": "src",
+    "outDir": "lib"
+  },
+  "include": ["src/analytics.ts", "src/*.d.ts"]
+}

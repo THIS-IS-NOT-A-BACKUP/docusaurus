@@ -5,10 +5,7 @@
   "main": "lib/index.js",
   "types": "src/plugin-pwa.d.ts",
   "scripts": {
-    "build": "yarn build:server && yarn build:browser && yarn build:copy",
-    "build:server": "tsc --project tsconfig.server.json",
-    "build:browser": "tsc --project tsconfig.browser.json",
-    "build:copy": "node copyUntypedFiles.mjs"
+    "build": "tsc --build && node copyUntypedFiles.mjs && prettier --config ../../.prettierrc --write \"lib/theme/**/*.js\""
   },
   "publishConfig": {
     "access": "public"
@@ -20,8 +17,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
+    "@babel/core": "^7.17.12",
+    "@babel/preset-env": "^7.17.12",
     "@docusaurus/core": "2.0.0-beta.20",
     "@docusaurus/theme-common": "2.0.0-beta.20",
     "@docusaurus/theme-translations": "2.0.0-beta.20",
