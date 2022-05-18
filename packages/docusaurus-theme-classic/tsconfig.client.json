@@ -10,6 +10,11 @@
     "module": "esnext",
     "target": "esnext"
   },
-  "include": ["src/theme", "src/*.d.ts", "src/custom-buble.ts"],
+  "include": [
+    "src/nprogress.ts",
+    "src/prism-include-languages.ts",
+    "src/theme",
+    "src/*.d.ts"
+  ],
   "exclude": ["**/__tests__/**"]
 }
