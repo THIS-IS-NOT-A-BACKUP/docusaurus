@@ -1341,6 +1341,14 @@ const Users: User[] = [
     tags: ['opensource', 'design'],
   },
   {
+    title: 'Nhost',
+    description: 'The Open Source Firebase Alternative with GraphQL',
+    preview: require('./showcase/nhost.png'),
+    website: 'https://docs.nhost.io',
+    source: 'https://github.com/nhost/nhost/tree/main/docs',
+    tags: ['opensource', 'product', 'design'],
+  },
+  {
     title: 'Nocalhost',
     description:
       'An open-source toolsets help to build cloud-native applications easier and faster.',
@@ -1632,6 +1640,14 @@ const Users: User[] = [
     website: 'https://rivalis.io',
     source: 'https://github.com/rivalis/rivalis.github.io',
     tags: ['opensource', 'design', 'product'],
+  },
+  {
+    title: 'react-chat-elements',
+    description: 'Chat UI package for React',
+    preview: require('./showcase/react-chat-elements.png'),
+    website: 'https://detaysoft.github.io/docs-react-chat-elements/',
+    source: 'https://github.com/Detaysoft/react-chat-elements',
+    tags: ['opensource'],
   },
   {
     title: 'React Complex Tree',
