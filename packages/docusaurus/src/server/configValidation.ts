@@ -135,6 +135,7 @@ const LocaleConfigSchema = Joi.object({
   htmlLang: Joi.string(),
   direction: Joi.string().equal('ltr', 'rtl').default('ltr'),
   calendar: Joi.string(),
+  path: Joi.string(),
 });
 
 const I18N_CONFIG_SCHEMA = Joi.object<I18nConfig>({
@@ -173,13 +174,13 @@ export const ConfigSchema = Joi.object<DocusaurusConfig>({
   trailingSlash: Joi.boolean(), // No default value! undefined = retrocompatible legacy behavior!
   i18n: I18N_CONFIG_SCHEMA,
   onBrokenLinks: Joi.string()
-    .equal('ignore', 'log', 'warn', 'error', 'throw')
+    .equal('ignore', 'log', 'warn', 'throw')
     .default(DEFAULT_CONFIG.onBrokenLinks),
   onBrokenMarkdownLinks: Joi.string()
-    .equal('ignore', 'log', 'warn', 'error', 'throw')
+    .equal('ignore', 'log', 'warn', 'throw')
     .default(DEFAULT_CONFIG.onBrokenMarkdownLinks),
   onDuplicateRoutes: Joi.string()
-    .equal('ignore', 'log', 'warn', 'error', 'throw')
+    .equal('ignore', 'log', 'warn', 'throw')
     .default(DEFAULT_CONFIG.onDuplicateRoutes),
   organizationName: Joi.string().allow(''),
   staticDirectories: Joi.array()

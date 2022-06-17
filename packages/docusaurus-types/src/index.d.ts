@@ -21,7 +21,7 @@ import type {Location} from 'history';
 
 // === Configuration ===
 
-export type ReportingSeverity = 'ignore' | 'log' | 'warn' | 'error' | 'throw';
+export type ReportingSeverity = 'ignore' | 'log' | 'warn' | 'throw';
 
 export type PluginOptions = {id?: string} & {[key: string]: unknown};
 
@@ -61,6 +61,12 @@ export type I18nLocaleConfig = {
    * or `en-US` (`en` means `en-US`).
    */
   calendar: string;
+  /**
+   * Root folder that all plugin localization folders of this locale are
+   * relative to. Will be resolved against `i18n.path`. Defaults to the locale's
+   * name.
+   */
+  path: string;
 };
 
 export type I18nConfig = {
