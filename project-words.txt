@@ -196,6 +196,7 @@ nprogress
 ntfs
 nuxt
 onboarded
+openapi
 opensearch
 opensearchdescription
 opensource
@@ -210,6 +211,7 @@ palo
 paraiso
 pathinfo
 pathnames
+pbcopy
 peaceiris
 philpl
 photoshop
