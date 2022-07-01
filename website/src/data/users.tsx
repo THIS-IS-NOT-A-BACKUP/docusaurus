@@ -1257,6 +1257,15 @@ const Users: User[] = [
     tags: ['opensource', 'product', 'design'],
   },
   {
+    title: 'Novu',
+    description:
+      'The open-source notification infrastructure for developers',
+    preview: require('./showcase/novu-docs.png'),
+    website: 'https://docs.novu.co/',
+    source: 'https://github.com/novuhq/novu',
+    tags: ['opensource', 'product', 'design'],
+  },
+  {
     title: 'Nocalhost',
     description:
       'An open-source toolsets help to build cloud-native applications easier and faster.',
@@ -1699,6 +1708,14 @@ const Users: User[] = [
     website: 'https://arifszn.github.io/reddit-image-fetcher',
     source: null,
     tags: [],
+  },
+  {
+    title: 'RedGradient',
+    description: 'CSS Gradient Editor',
+    preview: require('./showcase/red-gradient.png'),
+    website: 'https://doc.red-gradient.com/',
+    source: 'https://github.com/redcamel/RedGradientDoc',
+    tags: ['opensource'],
   },
   {
     title: 'Redis Labs Developer Site',
