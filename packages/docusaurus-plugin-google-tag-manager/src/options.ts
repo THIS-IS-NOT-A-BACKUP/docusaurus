@@ -5,7 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-.breadcrumbsContainer {
-  --ifm-breadcrumb-size-multiplier: 0.8;
-  margin-bottom: 0.8rem;
-}
+export type PluginOptions = {
+  containerId: string;
+};
+
+export type Options = Partial<PluginOptions>;
