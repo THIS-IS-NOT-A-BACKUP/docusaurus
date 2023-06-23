@@ -76,7 +76,8 @@ async function createProcessorFactory() {
   const {createProcessor: createMdxProcessor} = await import('@mdx-js/mdx');
   const {default: rehypeRaw} = await import('rehype-raw');
   const {default: gfm} = await import('remark-gfm');
-  const {default: comment} = await import('remark-comment');
+  // TODO using fork until PR merged: https://github.com/leebyron/remark-comment/pull/3
+  const {default: comment} = await import('@slorber/remark-comment');
   const {default: directive} = await import('remark-directive');
 
   // /!\ this method is synchronous on purpose
@@ -235,6 +236,7 @@ export async function createProcessorCached({
   const format = getFormat({
     filePath,
     frontMatterFormat: mdxFrontMatter.format,
+    markdownConfigFormat: reqOptions.markdownConfig.format,
   });
 
   return format === 'md' ? compilers.mdProcessor : compilers.mdxProcessor;

@@ -157,14 +157,12 @@ module.exports = async function createConfigAsync() {
       }),
     },
     markdown: {
+      format: 'detect',
       mermaid: true,
       mdx1Compat: {
         // comments: false,
       },
       preprocessor: ({filePath, fileContent}) => {
-        // TODO temporary quick fix for https://github.com/facebook/docusaurus/issues/9084
-        fileContent = fileContent.replaceAll('<!--\n', '<!-- \n');
-
         if (isDev) {
           // "vscode://file/${projectPath}${filePath}:${line}:${column}",
           // "webstorm://open?file=${projectPath}${filePath}&line=${line}&column=${column}",
