@@ -77,7 +77,7 @@ export async function createBaseConfig({
   const isProd = process.env.NODE_ENV === 'production';
   const minimizeEnabled = minify && isProd;
 
-  const fileLoaderUtils = getFileLoaderUtils();
+  const fileLoaderUtils = getFileLoaderUtils(isServer);
 
   const name = isServer ? 'server' : 'client';
   const mode = isProd ? 'production' : 'development';
@@ -231,9 +231,9 @@ export async function createBaseConfig({
           test: CSS_MODULE_REGEX,
           use: getStyleLoaders(isServer, {
             modules: {
-              localIdentName: isProd
-                ? `[local]_[contenthash:base64:4]`
-                : `[local]_[path][name]`,
+              // Using the same CSS Module class pattern in dev/prod on purpose
+              // See https://github.com/facebook/docusaurus/pull/10423
+              localIdentName: `[local]_[contenthash:base64:4]`,
               exportOnlyLocals: isServer,
             },
             importLoaders: 1,
