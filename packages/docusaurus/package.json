@@ -92,7 +92,7 @@
     "semver": "^7.5.4",
     "serve-handler": "^6.1.5",
     "shelljs": "^0.8.5",
-    "terser-webpack-plugin": "^5.3.9",
+    "terser-webpack-plugin": "^5.3.10",
     "tslib": "^2.6.0",
     "update-notifier": "^6.0.2",
     "url-loader": "^4.1.1",
@@ -118,9 +118,15 @@
     "tree-node-cli": "^1.6.0"
   },
   "peerDependencies": {
+    "@docusaurus/faster": "3.5.2",
     "@mdx-js/react": "^3.0.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@docusaurus/faster": {
+      "optional": true
+    }
   },
   "engines": {
     "node": ">=18.0"
