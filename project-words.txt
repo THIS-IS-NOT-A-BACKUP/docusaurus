@@ -279,6 +279,8 @@ Rsdoctor
 RSDOCTOR
 rspack
 Rspack
+RSPACK
+Rspress
 rtcts
 saurus
 Scaleway
@@ -325,8 +327,8 @@ swizzlable
 Tagkey
 Teik
 Therox
-toplevel
 thisweekinreact
+toplevel
 Transifex
 transpiles
 treeified
