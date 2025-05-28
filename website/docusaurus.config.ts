@@ -157,6 +157,11 @@ function getLocalizedConfigValue(key: keyof typeof ConfigLocalized) {
   return value;
 }
 
+// By default, we don't want to run "git log" commands on i18n sites
+// This makes localized sites build much slower on Netlify
+// See also https://github.com/facebook/docusaurus/issues/11208
+const showLastUpdate = process.env.DOCUSAURUS_CURRENT_LOCALE === defaultLocale;
+
 export default async function createConfigAsync() {
   return {
     title: 'Docusaurus',
@@ -316,6 +321,10 @@ export default async function createConfigAsync() {
         './src/plugins/changelog/index.ts',
         {
           blogTitle: 'Docusaurus changelog',
+          // Not useful, but permits to run git commands earlier
+          // Otherwise the sitemap plugin will run them in postBuild()
+          showLastUpdateAuthor: showLastUpdate,
+          showLastUpdateTime: showLastUpdate,
           blogDescription:
             'Keep yourself up-to-date about new features in every release',
           blogSidebarCount: 'ALL',
@@ -351,8 +360,8 @@ export default async function createConfigAsync() {
           remarkPlugins: [npm2yarn],
           editCurrentVersion: true,
           sidebarPath: './sidebarsCommunity.js',
-          showLastUpdateAuthor: true,
-          showLastUpdateTime: true,
+          showLastUpdateAuthor: showLastUpdate,
+          showLastUpdateTime: showLastUpdate,
         } satisfies DocsOptions,
       ],
       !process.env.DOCUSAURUS_SKIP_BUNDLING && [
@@ -486,8 +495,8 @@ export default async function createConfigAsync() {
             admonitions: {
               keywords: ['my-custom-admonition'],
             },
-            showLastUpdateAuthor: true,
-            showLastUpdateTime: true,
+            showLastUpdateAuthor: showLastUpdate,
+            showLastUpdateTime: showLastUpdate,
             remarkPlugins: [[npm2yarn, {sync: true}], remarkMath, configTabs],
             rehypePlugins: [rehypeKatex],
             disableVersioning: isVersioningDisabled,
@@ -520,8 +529,8 @@ export default async function createConfigAsync() {
           blog: {
             // routeBasePath: '/',
             path: 'blog',
-            showLastUpdateAuthor: true,
-            showLastUpdateTime: true,
+            showLastUpdateAuthor: showLastUpdate,
+            showLastUpdateTime: showLastUpdate,
             editUrl: ({locale, blogDirPath, blogPath}) => {
               if (locale !== defaultLocale) {
                 return `https://crowdin.com/project/docusaurus-v2/${locale}`;
@@ -558,8 +567,8 @@ export default async function createConfigAsync() {
               }
               return `https://github.com/facebook/docusaurus/edit/main/website/src/pages/${pagesPath}`;
             },
-            showLastUpdateAuthor: true,
-            showLastUpdateTime: true,
+            showLastUpdateAuthor: showLastUpdate,
+            showLastUpdateTime: showLastUpdate,
           } satisfies PageOptions,
           theme: {
             customCss: [
@@ -578,7 +587,7 @@ export default async function createConfigAsync() {
               ? undefined
               : // Note: /tests/docs already has noIndex: true
                 ['/tests/{blog,pages}/**'],
-            lastmod: 'date',
+            lastmod: showLastUpdate ? 'date' : null,
             priority: null,
             changefreq: null,
           },
