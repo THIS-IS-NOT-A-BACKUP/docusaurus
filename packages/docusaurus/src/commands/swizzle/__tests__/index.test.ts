@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {jest} from '@jest/globals';
+import {type MockInstance} from 'vitest';
 import path from 'path';
 import fs from 'fs-extra';
 import tree from 'tree-node-cli';
@@ -55,15 +55,15 @@ class MockExitError extends Error {
 }
 
 function createExitMock() {
-  let mock: jest.SpyInstance<(code?: number) => never>;
+  let mock: MockInstance<(code?: number) => never>;
 
-  // eslint-disable-next-line jest/require-top-level-describe
+  /* eslint-disable-next-line @vitest/require-top-level-describe */
   beforeEach(async () => {
-    mock = jest.spyOn(process, 'exit').mockImplementation((code) => {
+    mock = vi.spyOn(process, 'exit').mockImplementation((code) => {
       throw new MockExitError(code!);
-    }) as jest.SpyInstance<(code?: number) => never>;
+    }) as MockInstance<(code?: number) => never>;
   });
-  // eslint-disable-next-line jest/require-top-level-describe
+  /* eslint-disable-next-line @vitest/require-top-level-describe */
   afterEach(async () => {
     mock.mockRestore();
   });

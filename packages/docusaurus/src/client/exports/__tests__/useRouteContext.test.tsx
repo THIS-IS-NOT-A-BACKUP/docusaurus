@@ -3,12 +3,8 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @jest-environment jsdom
  */
-
-// Jest doesn't allow pragma below other comments. https://github.com/facebook/jest/issues/12573
-// eslint-disable-next-line header/header
+// @vitest-environment jsdom
 import React from 'react';
 import {renderHook} from '@testing-library/react';
 import {RouteContextProvider} from '../../routeContext';
@@ -19,7 +15,7 @@ describe('useRouteContext', () => {
     expect(
       () => renderHook(() => useRouteContext()).result.current,
     ).toThrowErrorMatchingInlineSnapshot(
-      `"Unexpected: no Docusaurus route context found"`,
+      `[Error: Unexpected: no Docusaurus route context found]`,
     );
   });
   it('returns merged route contexts', () => {

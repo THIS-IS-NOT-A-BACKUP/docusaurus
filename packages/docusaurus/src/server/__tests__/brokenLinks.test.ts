@@ -5,10 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {jest} from '@jest/globals';
-import reactRouterConfig from 'react-router-config';
+import * as reactRouterConfig from 'react-router-config';
 import {handleBrokenLinks} from '../brokenLinks';
 import type {RouteConfig} from '@docusaurus/types';
+
+vi.mock('react-router-config', async () => {
+  const actual = await vi.importActual<typeof import('react-router-config')>(
+    'react-router-config',
+  );
+
+  return {
+    ...actual,
+    matchRoutes: vi.fn(actual.matchRoutes),
+  };
+});
 
 type Params = Parameters<typeof handleBrokenLinks>[0];
 
@@ -357,7 +367,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken links!
+      [Error: Docusaurus found broken links!
 
       Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
       Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
@@ -365,7 +375,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken links found:
       - Broken link on source page path = /page1:
          -> linking to /brokenLink
-      "
+      ]
     `);
   });
 
@@ -389,7 +399,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken links!
+      [Error: Docusaurus found broken links!
 
       Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
       Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
@@ -399,7 +409,7 @@ describe('handleBrokenLinks', () => {
          -> linking to /page2
       - Broken link on source page path = /page2/:
          -> linking to /page2
-      "
+      ]
     `);
   });
 
@@ -423,7 +433,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken links!
+      [Error: Docusaurus found broken links!
 
       Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
       Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
@@ -435,7 +445,7 @@ describe('handleBrokenLinks', () => {
       - Broken link on source page path = /page2/:
          -> linking to /page1/
          -> linking to /page2
-      "
+      ]
     `);
   });
 
@@ -448,7 +458,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken links!
+      [Error: Docusaurus found broken links!
 
       Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
       Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
@@ -456,7 +466,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken links found:
       - Broken link on source page path = /page1:
          -> linking to /brokenLink#anchor
-      "
+      ]
     `);
   });
 
@@ -469,7 +479,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken links!
+      [Error: Docusaurus found broken links!
 
       Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
       Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
@@ -477,7 +487,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken links found:
       - Broken link on source page path = /page1:
          -> linking to /brokenLink?age=42#anchor
-      "
+      ]
     `);
   });
 
@@ -491,7 +501,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken anchors!
+      [Error: Docusaurus found broken anchors!
 
       Please check the pages of your site in the list below, and make sure you don't reference any anchor that does not exist.
       Note: it's possible to ignore broken anchors with the 'onBrokenAnchors' Docusaurus configuration, and let the build pass.
@@ -499,7 +509,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken anchors found:
       - Broken anchor on source page path = /page1:
          -> linking to /page2#brokenAnchor
-      "
+      ]
     `);
   });
 
@@ -516,7 +526,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken anchors!
+      [Error: Docusaurus found broken anchors!
 
       Please check the pages of your site in the list below, and make sure you don't reference any anchor that does not exist.
       Note: it's possible to ignore broken anchors with the 'onBrokenAnchors' Docusaurus configuration, and let the build pass.
@@ -524,7 +534,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken anchors found:
       - Broken anchor on source page path = /page1:
          -> linking to /page2?age=42&theme=dark#brokenAnchor
-      "
+      ]
     `);
   });
 
@@ -550,7 +560,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken anchors!
+      [Error: Docusaurus found broken anchors!
 
       Please check the pages of your site in the list below, and make sure you don't reference any anchor that does not exist.
       Note: it's possible to ignore broken anchors with the 'onBrokenAnchors' Docusaurus configuration, and let the build pass.
@@ -560,7 +570,7 @@ describe('handleBrokenLinks', () => {
          -> linking to #badAnchor1 (resolved as: /page1#badAnchor1)
          -> linking to /page1#badAnchor2
          -> linking to /page1?age=42#badAnchor3
-      "
+      ]
     `);
   });
 
@@ -574,7 +584,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken anchors!
+      [Error: Docusaurus found broken anchors!
 
       Please check the pages of your site in the list below, and make sure you don't reference any anchor that does not exist.
       Note: it's possible to ignore broken anchors with the 'onBrokenAnchors' Docusaurus configuration, and let the build pass.
@@ -582,7 +592,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken anchors found:
       - Broken anchor on source page path = /page1:
          -> linking to /page2#brokenAnchor
-      "
+      ]
     `);
   });
 
@@ -599,7 +609,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken anchors!
+      [Error: Docusaurus found broken anchors!
 
       Please check the pages of your site in the list below, and make sure you don't reference any anchor that does not exist.
       Note: it's possible to ignore broken anchors with the 'onBrokenAnchors' Docusaurus configuration, and let the build pass.
@@ -607,7 +617,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken anchors found:
       - Broken anchor on source page path = /page1:
          -> linking to /page2?age=42&theme=dark#brokenAnchor
-      "
+      ]
     `);
   });
 
@@ -650,7 +660,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken links!
+      [Error: Docusaurus found broken links!
 
       Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
       Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
@@ -658,7 +668,7 @@ describe('handleBrokenLinks', () => {
       Exhaustive list of all broken links found:
       - Broken link on source page path = /page1:
          -> linking to /page2
-      "
+      ]
     `);
   });
 
@@ -681,7 +691,7 @@ describe('handleBrokenLinks', () => {
         },
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken anchors!
+      [Error: Docusaurus found broken anchors!
 
       Please check the pages of your site in the list below, and make sure you don't reference any anchor that does not exist.
       Note: it's possible to ignore broken anchors with the 'onBrokenAnchors' Docusaurus configuration, and let the build pass.
@@ -691,12 +701,12 @@ describe('handleBrokenLinks', () => {
          -> linking to /page1#brokenAnchor1
          -> linking to /page1#brokenAnchor2
          -> linking to #brokenAnchor3 (resolved as: /page1#brokenAnchor3)
-      "
+      ]
     `);
   });
 
   it('can warn for broken links', async () => {
-    const warnMock = jest.spyOn(console, 'warn');
+    const warnMock = vi.spyOn(console, 'warn');
 
     await testBrokenLinks({
       onBrokenLinks: 'warn',
@@ -729,7 +739,7 @@ describe('handleBrokenLinks', () => {
   });
 
   it('can warn for broken anchors', async () => {
-    const warnMock = jest.spyOn(console, 'warn');
+    const warnMock = vi.spyOn(console, 'warn');
 
     await testBrokenLinks({
       onBrokenAnchors: 'warn',
@@ -762,7 +772,7 @@ describe('handleBrokenLinks', () => {
   });
 
   it('can warn for both broken links and anchors', async () => {
-    const warnMock = jest.spyOn(console, 'warn');
+    const warnMock = vi.spyOn(console, 'warn');
 
     await testBrokenLinks({
       onBrokenLinks: 'warn',
@@ -835,7 +845,7 @@ describe('handleBrokenLinks', () => {
         collectedLinks,
       }),
     ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus found broken links!
+      [Error: Docusaurus found broken links!
 
       Please check the pages of your site in the list below, and make sure you don't reference any path that does not exist.
       Note: it's possible to ignore broken links with the 'onBrokenLinks' Docusaurus configuration, and let the build pass.
@@ -863,12 +873,13 @@ describe('handleBrokenLinks', () => {
       - Broken link on source page path = /dir/page5:
          -> linking to /frequentBrokenLink
          -> linking to ./relativeFrequentBrokenLink (resolved as: /dir/relativeFrequentBrokenLink)
-      "
+      ]
     `);
   });
 
   it('is performant and minimize calls to matchRoutes', async () => {
-    const matchRoutesMock = jest.spyOn(reactRouterConfig, 'matchRoutes');
+    const matchRoutesMock = vi.mocked(reactRouterConfig.matchRoutes);
+    vi.clearAllMocks();
 
     const scale = 100;
 

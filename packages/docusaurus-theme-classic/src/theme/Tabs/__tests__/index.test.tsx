@@ -3,12 +3,8 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @jest-environment jsdom
  */
-
-// Jest doesn't allow pragma below other comments. https://github.com/facebook/jest/issues/12573
-// eslint-disable-next-line header/header
+// @vitest-environment jsdom
 import React from 'react';
 import type {PropsWithChildren, ReactNode} from 'react';
 import {render} from '@testing-library/react';
@@ -44,8 +40,8 @@ describe('Tabs', () => {
         </TestProviders>,
       );
     }).toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus error: Bad <Tabs> child <div>: all children of the <Tabs> component should be <TabItem>, and every <TabItem> should have a unique "value" prop.
-      If you do not want to pass on a "value" prop to the direct children of <Tabs>, you can also pass an explicit <Tabs values={...}> prop."
+      [Error: Docusaurus error: Bad <Tabs> child <div>: all children of the <Tabs> component should be <TabItem>, and every <TabItem> should have a unique "value" prop.
+      If you do not want to pass on a "value" prop to the direct children of <Tabs>, you can also pass an explicit <Tabs values={...}> prop.]
     `);
   });
 
@@ -60,7 +56,7 @@ describe('Tabs', () => {
         </TestProviders>,
       );
     }).toThrowErrorMatchingInlineSnapshot(
-      `"Docusaurus error: The <Tabs> has a defaultValue "bad" but none of its children has the corresponding value. Available values are: v1, v2. If you intend to show no default tab, use defaultValue={null} instead."`,
+      `[Error: Docusaurus error: The <Tabs> has a defaultValue "bad" but none of its children has the corresponding value. Available values are: v1, v2. If you intend to show no default tab, use defaultValue={null} instead.]`,
     );
   });
 
@@ -79,7 +75,7 @@ describe('Tabs', () => {
         </TestProviders>,
       );
     }).toThrowErrorMatchingInlineSnapshot(
-      `"Docusaurus error: Duplicate values "'v1', 'v2'" found in <Tabs>. Every value needs to be unique."`,
+      `[Error: Docusaurus error: Duplicate values "'v1', 'v2'" found in <Tabs>. Every value needs to be unique.]`,
     );
   });
 
@@ -105,7 +101,7 @@ describe('Tabs', () => {
         </TestProviders>,
       );
     }).toThrowErrorMatchingInlineSnapshot(
-      `"Docusaurus error: Duplicate values "'v1', 'v2'" found in <Tabs>. Every value needs to be unique."`,
+      `[Error: Docusaurus error: Duplicate values "'v1', 'v2'" found in <Tabs>. Every value needs to be unique.]`,
     );
   });
 
@@ -210,8 +206,8 @@ describe('Tabs', () => {
         </TestProviders>,
       );
     }).toThrowErrorMatchingInlineSnapshot(`
-      "Docusaurus error: Bad <Tabs> child <TabItem1>: all children of the <Tabs> component should be <TabItem>, and every <TabItem> should have a unique "value" prop.
-      If you do not want to pass on a "value" prop to the direct children of <Tabs>, you can also pass an explicit <Tabs values={...}> prop."
+      [Error: Docusaurus error: Bad <Tabs> child <TabItem1>: all children of the <Tabs> component should be <TabItem>, and every <TabItem> should have a unique "value" prop.
+      If you do not want to pass on a "value" prop to the direct children of <Tabs>, you can also pass an explicit <Tabs values={...}> prop.]
     `);
   });
 

@@ -3,12 +3,8 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
- *
- * @jest-environment jsdom
  */
-
-// Jest doesn't allow pragma below other comments. https://github.com/facebook/jest/issues/12573
-// eslint-disable-next-line header/header
+// @vitest-environment jsdom
 import React from 'react';
 import {renderHook} from '@testing-library/react';
 import {BrowserContextProvider} from '../browserContext';
@@ -21,6 +17,7 @@ describe('BrowserContextProvider', () => {
     ),
   });
 
+  // eslint-disable-next-line @vitest/no-commented-out-tests
   /*
    TODO it seems not really possible to test before hydration anymore
     See https://github.com/testing-library/react-testing-library/issues/1120
