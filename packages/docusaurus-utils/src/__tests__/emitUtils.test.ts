@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import {describe, expect, it, vi} from 'vitest';
 import path from 'path';
 import fs from 'fs-extra';
 import {readOutputHTMLFile, generate} from '../emitUtils';
@@ -119,7 +120,7 @@ describe('readOutputHTMLFile', () => {
 });
 
 describe('generate', () => {
-  const writeMock = vi.spyOn(fs, 'outputFile').mockImplementation(() => {});
+  const writeMock = vi.spyOn(fs, 'outputFile');
   const existsMock = vi.spyOn(fs, 'pathExists');
   const readMock = vi.spyOn(fs, 'readFile');
 

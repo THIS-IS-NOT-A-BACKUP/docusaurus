@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import {describe, expect, it, vi} from 'vitest';
 import path from 'path';
 import {createSlugger} from '@docusaurus/utils';
 import {loadSidebars, DisabledSidebars} from '../index';
@@ -155,16 +156,13 @@ describe('loadSidebars', () => {
   });
 
   it('duplicate category metadata files', async () => {
+    using warn = vi.spyOn(console, 'warn');
+    using error = vi.spyOn(console, 'error');
+
     const sidebarPath = path.join(
       fixtureDir,
       'sidebars-collapsed-first-level.json',
     );
-    const consoleWarnMock = vi
-      .spyOn(console, 'warn')
-      .mockImplementation(() => {});
-    const consoleErrorMock = vi
-      .spyOn(console, 'error')
-      .mockImplementation(() => {});
     await expect(() =>
       loadSidebars(sidebarPath, {
         ...params,
@@ -176,12 +174,12 @@ describe('loadSidebars', () => {
     ).rejects.toThrowErrorMatchingInlineSnapshot(
       `[ValidationError: "foo" is not allowed]`,
     );
-    expect(consoleWarnMock).toHaveBeenCalledWith(
+    expect(warn).toHaveBeenCalledWith(
       expect.stringMatching(
         /.*\[WARNING\].* There are more than one category metadata files for .*foo.*: foo\/_category_.json, foo\/_category_.yml. The behavior is undetermined./,
       ),
     );
-    expect(consoleErrorMock).toHaveBeenCalledWith(
+    expect(error).toHaveBeenCalledWith(
       expect.stringMatching(
         /.*\[ERROR\].* The docs sidebar category metadata file .*foo\/_category_.json.* looks invalid!/,
       ),

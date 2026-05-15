@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import {describe, expect, it, vi} from 'vitest';
 import fs from 'fs-extra';
 import path from 'path';
 import tmp from 'tmp-promise';
@@ -51,14 +52,9 @@ async function createTmpTranslationFile(
 }
 
 describe('writeCodeTranslations', () => {
-  const consoleInfoMock = vi
-    .spyOn(console, 'info')
-    .mockImplementation(() => {});
-  beforeEach(() => {
-    consoleInfoMock.mockClear();
-  });
-
   it('creates new translation file', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile(null);
     await writeCodeTranslations(
       {localizationDir},
@@ -75,12 +71,14 @@ describe('writeCodeTranslations', () => {
       key2: {message: 'key2 message'},
       key3: {message: 'key3 message'},
     });
-    expect(consoleInfoMock).toHaveBeenCalledWith(
+    expect(info).toHaveBeenCalledWith(
       expect.stringMatching(/3.* translations will be written/),
     );
   });
 
   it('creates new translation file with prefix', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile(null);
     await writeCodeTranslations(
       {localizationDir},
@@ -99,12 +97,14 @@ describe('writeCodeTranslations', () => {
       key2: {message: 'PREFIX key2 message'},
       key3: {message: 'PREFIX key3 message'},
     });
-    expect(consoleInfoMock).toHaveBeenCalledWith(
+    expect(info).toHaveBeenCalledWith(
       expect.stringMatching(/3.* translations will be written/),
     );
   });
 
   it('appends missing translations', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile({
       key1: {message: 'key1 message'},
       key2: {message: 'key2 message'},
@@ -128,12 +128,14 @@ describe('writeCodeTranslations', () => {
       key3: {message: 'key3 message'},
       key4: {message: 'key4 message new'},
     });
-    expect(consoleInfoMock).toHaveBeenCalledWith(
+    expect(info).toHaveBeenCalledWith(
       expect.stringMatching(/4.* translations will be written/),
     );
   });
 
   it('appends missing.* translations with prefix', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile({
       key1: {message: 'key1 message'},
     });
@@ -153,12 +155,14 @@ describe('writeCodeTranslations', () => {
       key1: {message: 'key1 message'},
       key2: {message: 'PREFIX key2 message new'},
     });
-    expect(consoleInfoMock).toHaveBeenCalledWith(
+    expect(info).toHaveBeenCalledWith(
       expect.stringMatching(/2.* translations will be written/),
     );
   });
 
   it('overrides missing translations', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile({
       key1: {message: 'key1 message'},
     });
@@ -178,12 +182,14 @@ describe('writeCodeTranslations', () => {
       key1: {message: 'key1 message new'},
       key2: {message: 'key2 message new'},
     });
-    expect(consoleInfoMock).toHaveBeenCalledWith(
+    expect(info).toHaveBeenCalledWith(
       expect.stringMatching(/2.* translations will be written/),
     );
   });
 
   it('overrides missing translations with prefix', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile({
       key1: {message: 'key1 message'},
     });
@@ -204,12 +210,14 @@ describe('writeCodeTranslations', () => {
       key1: {message: 'PREFIX key1 message new'},
       key2: {message: 'PREFIX key2 message new'},
     });
-    expect(consoleInfoMock).toHaveBeenCalledWith(
+    expect(info).toHaveBeenCalledWith(
       expect.stringMatching(/2.* translations will be written/),
     );
   });
 
   it('always overrides message description', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile({
       key1: {message: 'key1 message', description: 'key1 desc'},
       key2: {message: 'key2 message', description: 'key2 desc'},
@@ -231,12 +239,14 @@ describe('writeCodeTranslations', () => {
       key2: {message: 'key2 message', description: 'key2 desc new'},
       key3: {message: 'key3 message', description: 'key3 desc new'},
     });
-    expect(consoleInfoMock).toHaveBeenCalledWith(
+    expect(info).toHaveBeenCalledWith(
       expect.stringMatching(/3.* translations will be written/),
     );
   });
 
   it('does not create empty translation files', async () => {
+    using info = vi.spyOn(console, 'info');
+
     const {localizationDir, readFile} = await createTmpTranslationFile(null);
 
     await writeCodeTranslations({localizationDir}, {}, {});
@@ -244,7 +254,7 @@ describe('writeCodeTranslations', () => {
     await expect(readFile()).rejects.toThrow(
       /ENOENT: no such file or directory, open /,
     );
-    expect(consoleInfoMock).toHaveBeenCalledTimes(0);
+    expect(info).toHaveBeenCalledTimes(0);
   });
 
   it('throws for invalid content', async () => {
@@ -625,24 +635,19 @@ describe('loadPluginsDefaultCodeTranslationMessages', () => {
 });
 
 describe('applyDefaultCodeTranslations', () => {
-  const consoleWarnMock = vi
-    .spyOn(console, 'warn')
-    .mockImplementation(() => {});
-  beforeEach(() => {
-    consoleWarnMock.mockClear();
-  });
-
   it('works for no code and message', () => {
+    using warn = vi.spyOn(console, 'warn');
     expect(
       applyDefaultCodeTranslations({
         extractedCodeTranslations: {},
         defaultCodeMessages: {},
       }),
     ).toEqual({});
-    expect(consoleWarnMock).toHaveBeenCalledTimes(0);
+    expect(warn).toHaveBeenCalledTimes(0);
   });
 
   it('works for code and message', () => {
+    using warn = vi.spyOn(console, 'warn');
     expect(
       applyDefaultCodeTranslations({
         extractedCodeTranslations: {
@@ -661,10 +666,11 @@ describe('applyDefaultCodeTranslations', () => {
         description: 'description',
       },
     });
-    expect(consoleWarnMock).toHaveBeenCalledTimes(0);
+    expect(warn).toHaveBeenCalledTimes(0);
   });
 
   it('works for code and message mismatch', () => {
+    using warn = vi.spyOn(console, 'warn');
     expect(
       applyDefaultCodeTranslations({
         extractedCodeTranslations: {
@@ -683,11 +689,12 @@ describe('applyDefaultCodeTranslations', () => {
         description: 'description',
       },
     });
-    expect(consoleWarnMock).toHaveBeenCalledTimes(1);
-    expect(consoleWarnMock.mock.calls[0]![0]).toMatch(/unknownId/);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0]![0]).toMatch(/unknownId/);
   });
 
   it('works for realistic scenario', () => {
+    using warn = vi.spyOn(console, 'warn');
     expect(
       applyDefaultCodeTranslations({
         extractedCodeTranslations: {
@@ -725,8 +732,8 @@ describe('applyDefaultCodeTranslations', () => {
         description: 'description 3',
       },
     });
-    expect(consoleWarnMock).toHaveBeenCalledTimes(1);
-    expect(consoleWarnMock.mock.calls[0]![0]).toMatch(/idUnknown1/);
-    expect(consoleWarnMock.mock.calls[0]![0]).toMatch(/idUnknown2/);
+    expect(warn).toHaveBeenCalledTimes(1);
+    expect(warn.mock.calls[0]![0]).toMatch(/idUnknown1/);
+    expect(warn.mock.calls[0]![0]).toMatch(/idUnknown2/);
   });
 });

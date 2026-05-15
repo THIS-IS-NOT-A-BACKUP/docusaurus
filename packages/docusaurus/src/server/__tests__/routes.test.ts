@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import {describe, expect, it, vi} from 'vitest';
 import {handleDuplicateRoutes} from '../routes';
 import type {RouteConfig} from '@docusaurus/types';
 
@@ -51,8 +52,8 @@ describe('handleDuplicateRoutes', () => {
       - Attempting to create page at /, but a page already exists at this route.
       This could lead to non-deterministic routing behavior.]
     `);
-    const consoleMock = vi.spyOn(console, 'log').mockImplementation(() => {});
+    using log = vi.spyOn(console, 'log');
     handleDuplicateRoutes(routes, 'ignore');
-    expect(consoleMock).toHaveBeenCalledTimes(0);
+    expect(log).toHaveBeenCalledTimes(0);
   });
 });
