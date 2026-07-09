@@ -123,6 +123,7 @@ export const DEFAULT_FUTURE_CONFIG: FutureConfig = {
 export const DEFAULT_MARKDOWN_HOOKS: MarkdownHooks = {
   onBrokenMarkdownLinks: 'warn',
   onBrokenMarkdownImages: 'throw',
+  onUnusedMarkdownDirectives: 'warn',
 };
 
 export const DEFAULT_MARKDOWN_MDX1COMPAT: MDX1CompatOptions = {
@@ -469,7 +470,10 @@ export const ConfigSchema = Joi.object<DocusaurusConfig>({
           is: Joi.valid(true),
           then: Joi.optional(),
           otherwise: Joi.object()
-            .pattern(/[\w-]+/, Joi.string())
+            .pattern(
+              /[\w-]+/,
+              Joi.alternatives().try(Joi.string(), Joi.boolean()),
+            )
             .required(),
         }),
         customElement: Joi.bool().default(false),
@@ -548,6 +552,12 @@ export const ConfigSchema = Joi.object<DocusaurusConfig>({
           Joi.function(),
         )
         .default(DEFAULT_CONFIG.markdown.hooks.onBrokenMarkdownImages),
+      onUnusedMarkdownDirectives: Joi.alternatives()
+        .try(
+          Joi.string().equal('ignore', 'log', 'warn', 'throw'),
+          Joi.function(),
+        )
+        .default(DEFAULT_CONFIG.markdown.hooks.onUnusedMarkdownDirectives),
     }).default(DEFAULT_CONFIG.markdown.hooks),
   }).default({
     ...DEFAULT_CONFIG.markdown,
