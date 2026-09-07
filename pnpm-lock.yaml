@@ -17,8 +17,8 @@ importers:
         specifier: ^3.0.177
         version: 3.0.219(react@19.2.6)(zod@4.4.3)
       '@crowdin/cli':
-        specifier: ^5.0.1
-        version: 5.0.1
+        specifier: ^5.0.2
+        version: 5.0.2
       '@docusaurus/eslint-plugin':
         specifier: 3.10.1
         version: link:packages/eslint-plugin
@@ -45,7 +45,7 @@ importers:
         version: 6.9.1
       '@testing-library/react':
         specifier: ^16.3.2
-        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        version: 16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       '@types/fs-extra':
         specifier: ^11.0.4
         version: 11.0.4
@@ -395,8 +395,8 @@ importers:
         specifier: ^11.2.0
         version: 11.3.5
       html-tags:
-        specifier: ^3.3.1
-        version: 3.3.1
+        specifier: ^5.1.0
+        version: 5.1.0
       html-webpack-plugin:
         specifier: ^5.6.7
         version: 5.6.7(webpack@5.107.2(@swc/core@1.15.43)(postcss@8.5.15))
@@ -593,7 +593,7 @@ importers:
         version: 7.0.2
       babel-loader:
         specifier: ^10.1.1
-        version: 10.1.1(@babel/core@7.29.7)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
+        version: 10.1.1(@babel/core@7.29.7)(@rspack/core@2.2.2)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
       clean-css:
         specifier: ^5.3.3
         version: 5.3.3
@@ -601,8 +601,8 @@ importers:
         specifier: ^14.0.0
         version: 14.0.0(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
       css-loader:
-        specifier: ^6.11.0
-        version: 6.11.0(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
+        specifier: ^7.1.5
+        version: 7.1.5(@rspack/core@2.2.2)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
       css-minimizer-webpack-plugin:
         specifier: ^8.0.0
         version: 8.0.0(clean-css@5.3.3)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
@@ -626,7 +626,7 @@ importers:
         version: 8.5.26
       postcss-loader:
         specifier: ^8.2.1
-        version: 8.2.1(postcss@8.5.26)(typescript@6.0.3)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
+        version: 8.2.1(@rspack/core@2.2.2)(postcss@8.5.26)(typescript@6.0.3)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
       postcss-preset-env:
         specifier: ^11.2.1
         version: 11.3.0(postcss@8.5.26)
@@ -644,7 +644,7 @@ importers:
         version: 5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)
       webpackbar:
         specifier: ^7.0.0
-        version: 7.0.0(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
+        version: 7.0.0(@rspack/core@2.2.2)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26))
     devDependencies:
       '@total-typescript/shoehorn':
         specifier: ^0.1.2
@@ -1420,8 +1420,8 @@ importers:
         specifier: 3.10.1
         version: link:../docusaurus-utils-validation
       '@vercel/analytics':
-        specifier: ^1.1.1
-        version: 1.6.1(react@19.2.6)
+        specifier: ^2.0.1
+        version: 2.0.1(react@19.2.6)
       react:
         specifier: ^19.2.5
         version: 19.2.6
@@ -2078,8 +2078,8 @@ importers:
   website:
     dependencies:
       '@crowdin/cli':
-        specifier: ^5.0.1
-        version: 5.0.1
+        specifier: ^5.0.2
+        version: 5.0.2
       '@crowdin/crowdin-api-client':
         specifier: ^1.55.1
         version: 1.55.2
@@ -2967,47 +2967,47 @@ packages:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
 
-  '@crowdin/cli-darwin-arm64@5.0.1':
-    resolution: {integrity: sha512-x8sfmegf4Rqdyw6mTH5Dvj+MKpSNrU32xLZjjZZ3SZ9jDGIke/ULOTO4mbd2UA+ryNrk+a9PgHxcKX5CF0LDgg==}
+  '@crowdin/cli-darwin-arm64@5.0.2':
+    resolution: {integrity: sha512-gMNXyJYxkfgJF4cAXrss6mgkvPoFOkwRi4PO/93+wlOMTLOQ7ENlq45hbjQqxAsLbysYF1oHyzafaPNlC7JuMQ==}
     cpu: [arm64]
     os: [darwin]
 
-  '@crowdin/cli-darwin-x64@5.0.1':
-    resolution: {integrity: sha512-tKWIGOKJVW+0L40E5pEhy4ghlFd5nYzJLdYbrTnOtmK+g3D/QkQpmY5Y3yujZah1A9KOewg5AgNDl2sEZFASLQ==}
+  '@crowdin/cli-darwin-x64@5.0.2':
+    resolution: {integrity: sha512-0iBJLy+kn0W095lFlkPG0jE0uLamFGjSR15N9yW3Q+Yps1zJBVyIH9IpjvALZOEHX0w9l5DZdCWzDowD9GTSQg==}
     cpu: [x64]
     os: [darwin]
 
-  '@crowdin/cli-linux-arm64-musl@5.0.1':
-    resolution: {integrity: sha512-88r2zA+QwgzqqY6cY2qdFlO8r5gmMkv4WYFeiCh6fIFMFcFFpKkJh1xyAu/bg+Gt6/ltOXHWXtflkxppncvmpg==}
+  '@crowdin/cli-linux-arm64-musl@5.0.2':
+    resolution: {integrity: sha512-/cfHw6bvPgFCGdIhYyFltGSQt33vgYbK1gFZO3BVGpM4gxLj/7cHz6sU4IRw+vHvSIHanfqeyAZzVLpCsfQwiA==}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@crowdin/cli-linux-arm64@5.0.1':
-    resolution: {integrity: sha512-cZrzCGNeN6n0QVTYnSBy18mdv4M+PcXyJ/MAAIq4E603WEP2pKQ5KM9eS32tdQIIaCl3NZ8miXundFcYOAlHEQ==}
+  '@crowdin/cli-linux-arm64@5.0.2':
+    resolution: {integrity: sha512-8LPMdQqqdVrn5t1KWywv/ewmxslwvUKMaFLFlNj44DFwRyd34yCXM3J56HazepMhuXIBD8tx0W6WMt9axv4j5w==}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@crowdin/cli-linux-x64-musl@5.0.1':
-    resolution: {integrity: sha512-4MGZ+1M+A2cp8RyuQC2cvX5wwEpPS4i/qOVTGJ3QIYK0xn3IR/GKt9QObKqIjZNYCsn8tUDzwDiyHuM+LZmhUw==}
+  '@crowdin/cli-linux-x64-musl@5.0.2':
+    resolution: {integrity: sha512-0BwcXbcBvCqutHyegSUqdUfSSrkNSxaar4y4TZE3Kgfjcw2laiTeOK8CAWhWxk523Jj/3/6P45wById07g0qKQ==}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@crowdin/cli-linux-x64@5.0.1':
-    resolution: {integrity: sha512-a76gwEcI0EUPcZKhjHsWP6V8BhoLqK7Qo19avQ5Fdque+uh7YTfYZ5CYM8oI2PIozkpL7rXECj4PY7Ul07vxTA==}
+  '@crowdin/cli-linux-x64@5.0.2':
+    resolution: {integrity: sha512-Fk1abpG2a9tM+49NyZU6l1/OyooNz9ZPIrpsR4xWP/c6ui0rh1l2XjOtbPjvXh2dW3YWemeOqiatW2j+WFj/cg==}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@crowdin/cli-win32-x64@5.0.1':
-    resolution: {integrity: sha512-wqPqWsCtw2s2eVopy2ZEYC6KfIcphI/1dVo+ikJAb47OQwzRot3JWN2n9GS+WKtRqtfuCTug3QVOx6Ypbme43Q==}
+  '@crowdin/cli-win32-x64@5.0.2':
+    resolution: {integrity: sha512-cMarWbzeJvJ6f0MNwRH2fEEKKUM8gQn+oEtCo2PQ3a3wXXMpOb1gRw96tthgYxaHIHISYxdYalNNITnswLGE/A==}
     cpu: [x64]
     os: [win32]
 
-  '@crowdin/cli@5.0.1':
-    resolution: {integrity: sha512-4CUJYUNK8qVB2htvdbGWsmToC2wB9L3L7O41jfhlWs5QK/YpeMjnDJIkN5fDL6bq9Iq9AlgsGqVojamQwmqWkw==}
+  '@crowdin/cli@5.0.2':
+    resolution: {integrity: sha512-TBUGFCIzAexEvePLet8aBRUEicB1A8r+A3/3gz+4paVKEc86cHK2CtaNhbto1ptKMRPkgFGXq8Z3f/TaoF09Lw==}
     engines: {node: '>=20'}
     hasBin: true
 
@@ -5655,8 +5655,8 @@ packages:
     resolution: {integrity: sha512-zIcONa+hVtVSSep9UT3jZ5rizo2BsxgyDYU7WFD5eICBE7no3881HGeb/QkGfsJs6JTkY1aQhT7rIPC7e+0nnA==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
 
-  '@testing-library/react@16.3.2':
-    resolution: {integrity: sha512-XU5/SytQM+ykqMnAnvB2umaJNIOsLF3PVv//1Ew4CTcpz0/BRyy/af40qqrt7SjKpDdT1saBMc42CUok5gaw+g==}
+  '@testing-library/react@16.3.3':
+    resolution: {integrity: sha512-Uo193NgQbPMz6lrrhtRQQFcMC6Re/ELLFbbuVL30WDlZxlpZf9/lMHTAVxPRLw1q1iu9OJmR1c2BLiENRstdBg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@testing-library/dom': ^10.0.0
@@ -6240,12 +6240,13 @@ packages:
   '@upsetjs/venn.js@2.0.0':
     resolution: {integrity: sha512-WbBhLrooyePuQ1VZxrJjtLvTc4NVfpOyKx0sKqioq9bX1C1m7Jgykkn8gLrtwumBioXIqam8DLxp88Adbue6Hw==}
 
-  '@vercel/analytics@1.6.1':
-    resolution: {integrity: sha512-oH9He/bEM+6oKlv3chWuOOcp8Y6fo6/PSro8hEkgCW3pu9/OiCXiUpRUogDh3Fs3LH2sosDrx8CxeOLBEE+afg==}
+  '@vercel/analytics@2.0.1':
+    resolution: {integrity: sha512-MTQG6V9qQrt1tsDeF+2Uoo5aPjqbVPys1xvnIftXSJYG2SrwXRHnqEvVoYID7BTruDz4lCd2Z7rM1BdkUehk2g==}
     peerDependencies:
       '@remix-run/react': ^2
       '@sveltejs/kit': ^1 || ^2
       next: '>= 13'
+      nuxt: '>= 3'
       react: ^18 || ^19 || ^19.0.0-rc
       svelte: '>= 4'
       vue: ^3
@@ -6256,6 +6257,8 @@ packages:
       '@sveltejs/kit':
         optional: true
       next:
+        optional: true
+      nuxt:
         optional: true
       react:
         optional: true
@@ -7437,12 +7440,12 @@ packages:
     peerDependencies:
       postcss: ^8.4
 
-  css-loader@6.11.0:
-    resolution: {integrity: sha512-CTJ+AEQJjq5NzLga5pE39qdiSV56F8ywCIsqNIRF0r7BDgWsN25aazToqAFg7ZrtA/U016xudB3ffgweORxX7g==}
-    engines: {node: '>= 12.13.0'}
+  css-loader@7.1.5:
+    resolution: {integrity: sha512-Q7iAfQkU2twNBryKX/vGAlE+GAmkF7quhSzAGNK8fBimxk3+tqg245rH52UPb9dioBolBc8rP0ihmHBaDTJQBA==}
+    engines: {node: '>= 18.12.0'}
     peerDependencies:
-      '@rspack/core': 0.x || 1.x
-      webpack: ^5.0.0
+      '@rspack/core': 0.x || ^1.0.0 || ^2.0.0-0
+      webpack: ^5.27.0
     peerDependenciesMeta:
       '@rspack/core':
         optional: true
@@ -8889,10 +8892,6 @@ packages:
     resolution: {integrity: sha512-tXgn3QfqPIpGl9o+K5tpcj3/MN4SfLtsx2GWwBC3SSd0tXQGyF3gsSqad8loJgKZGM3ZxbYDd5yhiBIdWpmvLA==}
     engines: {node: ^14.13.1 || >=16.0.0}
     hasBin: true
-
-  html-tags@3.3.1:
-    resolution: {integrity: sha512-ztqyC3kLto0e9WbNp0aeP+M3kTt+nbaIveGmUxAtZa+8iFgKLUOD4YKM5j+f3QD89bra7UeumolZHKuOXnTmeQ==}
-    engines: {node: '>=8'}
 
   html-tags@5.1.0:
     resolution: {integrity: sha512-n6l5uca7/y5joxZ3LUePhzmBFUJ+U2YWzhMa8XUTecSeSlQiZdF5XAd/Q3/WUl0VsXgUwWi8I7CNIwdI5WN1SQ==}
@@ -14517,36 +14516,36 @@ snapshots:
   '@colors/colors@1.5.0':
     optional: true
 
-  '@crowdin/cli-darwin-arm64@5.0.1':
+  '@crowdin/cli-darwin-arm64@5.0.2':
     optional: true
 
-  '@crowdin/cli-darwin-x64@5.0.1':
+  '@crowdin/cli-darwin-x64@5.0.2':
     optional: true
 
-  '@crowdin/cli-linux-arm64-musl@5.0.1':
+  '@crowdin/cli-linux-arm64-musl@5.0.2':
     optional: true
 
-  '@crowdin/cli-linux-arm64@5.0.1':
+  '@crowdin/cli-linux-arm64@5.0.2':
     optional: true
 
-  '@crowdin/cli-linux-x64-musl@5.0.1':
+  '@crowdin/cli-linux-x64-musl@5.0.2':
     optional: true
 
-  '@crowdin/cli-linux-x64@5.0.1':
+  '@crowdin/cli-linux-x64@5.0.2':
     optional: true
 
-  '@crowdin/cli-win32-x64@5.0.1':
+  '@crowdin/cli-win32-x64@5.0.2':
     optional: true
 
-  '@crowdin/cli@5.0.1':
+  '@crowdin/cli@5.0.2':
     optionalDependencies:
-      '@crowdin/cli-darwin-arm64': 5.0.1
-      '@crowdin/cli-darwin-x64': 5.0.1
-      '@crowdin/cli-linux-arm64': 5.0.1
-      '@crowdin/cli-linux-arm64-musl': 5.0.1
-      '@crowdin/cli-linux-x64': 5.0.1
-      '@crowdin/cli-linux-x64-musl': 5.0.1
-      '@crowdin/cli-win32-x64': 5.0.1
+      '@crowdin/cli-darwin-arm64': 5.0.2
+      '@crowdin/cli-darwin-x64': 5.0.2
+      '@crowdin/cli-linux-arm64': 5.0.2
+      '@crowdin/cli-linux-arm64-musl': 5.0.2
+      '@crowdin/cli-linux-x64': 5.0.2
+      '@crowdin/cli-linux-x64-musl': 5.0.2
+      '@crowdin/cli-win32-x64': 5.0.2
 
   '@crowdin/crowdin-api-client@1.55.2':
     dependencies:
@@ -17272,7 +17271,7 @@ snapshots:
       picocolors: 1.1.1
       redent: 3.0.0
 
-  '@testing-library/react@16.3.2(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
+  '@testing-library/react@16.3.3(@testing-library/dom@10.4.1)(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)':
     dependencies:
       '@babel/runtime': 7.29.7
       '@testing-library/dom': 10.4.1
@@ -17999,7 +17998,7 @@ snapshots:
       d3-selection: 3.0.0
       d3-transition: 3.0.1(d3-selection@3.0.0)
 
-  '@vercel/analytics@1.6.1(react@19.2.6)':
+  '@vercel/analytics@2.0.1(react@19.2.6)':
     optionalDependencies:
       react: 19.2.6
 
@@ -18464,6 +18463,14 @@ snapshots:
 
   axobject-query@4.1.0: {}
 
+  babel-loader@10.1.1(@babel/core@7.29.7)(@rspack/core@2.2.2)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
+    dependencies:
+      '@babel/core': 7.29.7
+      find-up: 5.0.0
+    optionalDependencies:
+      '@rspack/core': 2.2.2
+      webpack: 5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)
+
   babel-loader@10.1.1(@babel/core@7.29.7)(@rspack/core@2.2.2)(webpack@5.107.2(@swc/core@1.15.43)(postcss@8.5.15)):
     dependencies:
       '@babel/core': 7.29.7
@@ -18471,13 +18478,6 @@ snapshots:
     optionalDependencies:
       '@rspack/core': 2.2.2
       webpack: 5.107.2(@swc/core@1.15.43)(postcss@8.5.15)
-
-  babel-loader@10.1.1(@babel/core@7.29.7)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
-    dependencies:
-      '@babel/core': 7.29.7
-      find-up: 5.0.0
-    optionalDependencies:
-      webpack: 5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)
 
   babel-plugin-dynamic-import-node@2.3.3:
     dependencies:
@@ -19314,7 +19314,7 @@ snapshots:
       postcss-selector-parser: 7.1.1
       postcss-value-parser: 4.2.0
 
-  css-loader@6.11.0(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
+  css-loader@7.1.5(@rspack/core@2.2.2)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
     dependencies:
       icss-utils: 5.1.0(postcss@8.5.26)
       postcss: 8.5.26
@@ -19325,6 +19325,7 @@ snapshots:
       postcss-value-parser: 4.2.0
       semver: 7.8.5
     optionalDependencies:
+      '@rspack/core': 2.2.2
       webpack: 5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)
 
   css-minimizer-webpack-plugin@8.0.0(clean-css@5.3.3)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
@@ -21112,8 +21113,6 @@ snapshots:
       param-case: 3.0.4
       relateurl: 0.2.7
       terser: 5.48.0
-
-  html-tags@3.3.1: {}
 
   html-tags@5.1.0: {}
 
@@ -23881,13 +23880,14 @@ snapshots:
       '@csstools/utilities': 3.0.0(postcss@8.5.26)
       postcss: 8.5.26
 
-  postcss-loader@8.2.1(postcss@8.5.26)(typescript@6.0.3)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
+  postcss-loader@8.2.1(@rspack/core@2.2.2)(postcss@8.5.26)(typescript@6.0.3)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
     dependencies:
       cosmiconfig: 9.0.1(typescript@6.0.3)
       jiti: 2.7.0
       postcss: 8.5.26
       semver: 7.8.5
     optionalDependencies:
+      '@rspack/core': 2.2.2
       webpack: 5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)
     transitivePeerDependencies:
       - typescript
@@ -26444,13 +26444,14 @@ snapshots:
       - postcss
       - uglify-js
 
-  webpackbar@7.0.0(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
+  webpackbar@7.0.0(@rspack/core@2.2.2)(webpack@5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)):
     dependencies:
       ansis: 3.17.0
       consola: 3.4.2
       pretty-time: 1.1.0
       std-env: 3.10.0
     optionalDependencies:
+      '@rspack/core': 2.2.2
       webpack: 5.107.2(@swc/core@1.15.43)(clean-css@5.3.3)(cssnano@7.1.9(postcss@8.5.26))(html-minifier-terser@7.2.0)(postcss@8.5.26)
 
   whatwg-encoding@3.1.1:
