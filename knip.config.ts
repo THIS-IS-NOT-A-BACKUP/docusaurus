@@ -44,7 +44,6 @@ const config: KnipConfig = {
   workspaces: {
     '.': {
       entry: [
-        'admin/scripts/*.js',
         // Vitest alias for @generated/* modules
         'test/emptyModule.ts',
       ],
@@ -63,6 +62,15 @@ const config: KnipConfig = {
         // Installed in the argos workspace
         'playwright',
       ],
+    },
+    'admin/new.docusaurus.io': {
+      // Knip enables this plugin from dependencies, but the site has none
+      // The plugin reads functions entry points from netlify.toml
+      netlify: true,
+    },
+    'admin/scripts': {
+      // Run directly with node, or through the package bin commands
+      entry: ['*.js'],
     },
     'packages/create-docusaurus': {
       // Used to test the CLI package
@@ -89,14 +97,6 @@ const config: KnipConfig = {
         'express',
       ],
     },
-    'packages/docusaurus-bundler': {
-      ignoreDependencies: [
-        // Used through CssMinimizerPlugin.cssnanoMinify
-        'cssnano',
-        // Optional peer dependency, dynamically imported
-        '@docusaurus/faster',
-      ],
-    },
     'packages/docusaurus-module-type-aliases': {
       // Knip doesn't detect imports in "declare module" blocks
       ignoreDependencies: [/.*/],
@@ -117,10 +117,6 @@ const config: KnipConfig = {
     'packages/docusaurus-plugin-ideal-image': themePackageConfig(),
     'packages/docusaurus-plugin-pwa': themePackageConfig({
       entry: ['src/registerSw.ts', 'src/sw.ts'],
-      ignoreDependencies: [
-        // Used as a webpack loader name
-        'babel-loader',
-      ],
     }),
     'packages/docusaurus-plugin-svgr': {
       // TODO: used for types, see options.ts

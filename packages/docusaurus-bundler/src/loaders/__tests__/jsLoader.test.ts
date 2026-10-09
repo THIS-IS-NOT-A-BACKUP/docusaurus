@@ -6,7 +6,6 @@
  */
 
 import {describe, expect, it} from 'vitest';
-import {fromPartial, type PartialDeep} from '@total-typescript/shoehorn';
 import {createJsLoaderFactory} from '../jsLoader';
 
 import type {RuleSetRule} from 'webpack';
@@ -16,26 +15,20 @@ type SiteConfigSlice = Parameters<
 >[0]['siteConfig'];
 
 describe('createJsLoaderFactory', () => {
-  function testJsLoaderFactory(siteConfig?: {
-    webpack?: SiteConfigSlice['webpack'];
-    future?: PartialDeep<SiteConfigSlice['future']>;
-  }) {
+  function testJsLoaderFactory(siteConfig?: SiteConfigSlice) {
     return createJsLoaderFactory({
-      siteConfig: {
-        ...siteConfig,
-        webpack: siteConfig?.webpack,
-        future: fromPartial({
-          ...siteConfig?.future,
-          faster: fromPartial({
-            ...siteConfig?.future?.faster,
-          }),
-        }),
-      },
+      siteConfig: {webpack: siteConfig?.webpack},
     });
   }
 
-  it('createJsLoaderFactory defaults to babel loader', async () => {
+  it('createJsLoaderFactory defaults to built-in SWC loader with Rspack', async () => {
     const createJsLoader = await testJsLoaderFactory();
+    expect(createJsLoader({isServer: true}).loader).toBe('builtin:swc-loader');
+    expect(createJsLoader({isServer: false}).loader).toBe('builtin:swc-loader');
+  });
+
+  it('createJsLoaderFactory defaults to babel loader with Webpack', async () => {
+    const createJsLoader = await testJsLoaderFactory({webpack: {}});
     expect(createJsLoader({isServer: true}).loader).toBe(
       require.resolve('babel-loader'),
     );
@@ -66,28 +59,6 @@ describe('createJsLoaderFactory', () => {
     });
     expect(createJsLoader({isServer: true}).loader).toBe('my-loader-server');
     expect(createJsLoader({isServer: false}).loader).toBe('my-loader-client');
-  });
-
-  it('createJsLoaderFactory rejects custom loader when using faster swc loader', async () => {
-    await expect(() =>
-      testJsLoaderFactory({
-        future: {
-          faster: {
-            swcJsLoader: true,
-          },
-        },
-        webpack: {
-          jsLoader: (isServer) => {
-            return {loader: `my-loader-${isServer ? 'server' : 'client'}`};
-          },
-        },
-      }),
-    ).rejects.toThrowErrorMatchingInlineSnapshot(`
-      [Error: You can't use siteConfig.webpack.jsLoader and siteConfig.future.faster.swcJsLoader at the same time.
-      To avoid any configuration ambiguity, you must make an explicit choice:
-      - If you want to use Docusaurus Faster and SWC (recommended), remove siteConfig.webpack.jsLoader
-      - If you want to use a custom JS loader, use siteConfig.future.faster.swcJsLoader: false]
-    `);
   });
 
   it('createJsLoaderFactory accepts loaders with preset', async () => {

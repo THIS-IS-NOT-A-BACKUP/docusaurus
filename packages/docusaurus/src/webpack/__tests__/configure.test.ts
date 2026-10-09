@@ -13,17 +13,10 @@ import {
   applyConfigureWebpack,
   applyConfigurePostCss,
   executePluginsConfigureWebpack,
-  createConfigureWebpackUtils,
 } from '../configure';
-import {DEFAULT_FUTURE_CONFIG} from '../../server/configValidation';
+import {createTestConfigureWebpackUtils} from './testUtils';
 import type {Configuration} from 'webpack';
 import type {LoadedPlugin, Plugin} from '@docusaurus/types';
-
-function createTestConfigureWebpackUtils() {
-  return createConfigureWebpackUtils({
-    siteConfig: {webpack: {jsLoader: 'babel'}, future: DEFAULT_FUTURE_CONFIG},
-  });
-}
 
 const isServer = false;
 

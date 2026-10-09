@@ -5,22 +5,44 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import TerserPlugin from 'terser-webpack-plugin';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import {rspack} from './rspack';
 import {
-  importSwcJsMinimizerOptions,
-  importLightningCssMinimizerOptions,
-  importGetBrowserslistQueries,
-} from './importFaster';
-import {getCurrentBundlerAsRspack} from './currentBundler';
-import type {CssNanoOptions} from 'css-minimizer-webpack-plugin';
+  getBrowserslistQueries,
+  getLightningCssMinimizerOptions,
+} from './browserslist';
+import type {JsMinifyOptions} from '@swc/core';
+import type {
+  RspackPluginInstance,
+  SwcJsMinimizerRspackPluginOptions,
+} from '@rspack/core';
 import type {WebpackPluginInstance} from 'webpack';
-import type {CurrentBundler, FasterConfig} from '@docusaurus/types';
+import type {CurrentBundler} from '@docusaurus/types';
 
 export type MinimizersConfig = {
-  faster: Pick<FasterConfig, 'swcJsMinimizer' | 'lightningCssMinimizer'>;
   currentBundler: CurrentBundler;
 };
+
+type RspackSwcJsMinimizerOptions = NonNullable<
+  SwcJsMinimizerRspackPluginOptions['minimizerOptions']
+>;
+
+// Shared by Webpack and Rspack, compatible with both SWC and Rspack types
+// Rspack only accepts a subset of the SWC JS minifier options
+// See https://swc.rs/docs/configuration/minification
+// See https://rspack.rs/plugins/rspack/swc-js-minimizer-rspack-plugin#minimizeroptions
+const SwcJsMinimizerOptions = {
+  ecma: 2020,
+  compress: {
+    ecma: 5,
+  },
+  module: true,
+  mangle: true,
+  format: {
+    ecma: 5,
+    comments: false,
+    ascii_only: true,
+  },
+} as const satisfies RspackSwcJsMinimizerOptions;
 
 // See https://github.com/webpack-contrib/terser-webpack-plugin#parallel
 function getTerserParallel() {
@@ -36,120 +58,57 @@ function getTerserParallel() {
   return terserParallel;
 }
 
-async function getJsMinimizer({
-  faster,
-}: MinimizersConfig): Promise<WebpackPluginInstance> {
-  if (faster.swcJsMinimizer) {
-    const terserOptions = await importSwcJsMinimizerOptions();
-    return new TerserPlugin({
-      parallel: getTerserParallel(),
-      minify: TerserPlugin.swcMinify,
-      terserOptions,
-    });
-  }
-
-  return new TerserPlugin({
+// Terser is not used: terser-webpack-plugin only runs the SWC minifier
+async function getJsMinimizer(): Promise<WebpackPluginInstance> {
+  const {default: TerserPlugin} = await import('terser-webpack-plugin');
+  return new TerserPlugin<JsMinifyOptions>({
     parallel: getTerserParallel(),
-    // See https://terser.org/docs/options/
-    terserOptions: {
-      parse: {
-        // We want uglify-js to parse ecma 8 code. However, we don't want it
-        // to apply any minification steps that turns valid ecma 5 code
-        // into invalid ecma 5 code. This is why the 'compress' and 'output'
-        // sections only apply transformations that are ecma 5 safe
-        // https://github.com/facebook/create-react-app/pull/4234
-        ecma: 2020,
-      },
-      compress: {
-        ecma: 5,
-      },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        ecma: 5,
-        comments: false,
-        // Turned on because emoji and regex is not minified properly using
-        // default. See https://github.com/facebook/create-react-app/issues/2488
-        ascii_only: true,
-      },
-    },
+    minify: TerserPlugin.swcMinify,
+    terserOptions: {...SwcJsMinimizerOptions, safari10: true},
   });
 }
 
-async function getLightningCssMinimizer(): Promise<WebpackPluginInstance> {
+async function getCssMinimizer(): Promise<WebpackPluginInstance> {
+  const {default: CssMinimizerPlugin} =
+    await import('css-minimizer-webpack-plugin');
   return new CssMinimizerPlugin({
     minify: CssMinimizerPlugin.lightningCssMinify,
-    minimizerOptions: await importLightningCssMinimizerOptions(),
+    minimizerOptions: getLightningCssMinimizerOptions(),
   });
 }
 
-async function getCssNanoMinimizer(): Promise<WebpackPluginInstance> {
-  // This is an historical env variable to opt-out of the advanced minimizer
-  // Sometimes there's a bug in it and people are happy to disable it
-  const useSimpleCssMinifier = process.env.USE_SIMPLE_CSS_MINIFIER === 'true';
-  if (useSimpleCssMinifier) {
-    return new CssMinimizerPlugin();
-  }
-
-  return new CssMinimizerPlugin<CssNanoOptions>({
-    minify: CssMinimizerPlugin.cssnanoMinify,
-    minimizerOptions: {
-      preset: require.resolve('@docusaurus/cssnano-preset'),
-    },
-  });
+// Webpack-only minimizers are imported lazily, only when Webpack is used
+async function getWebpackMinimizers(): Promise<WebpackPluginInstance[]> {
+  return Promise.all([getJsMinimizer(), getCssMinimizer()]);
 }
 
-async function getCssMinimizer(
-  params: MinimizersConfig,
-): Promise<WebpackPluginInstance> {
-  return params.faster.lightningCssMinimizer
-    ? getLightningCssMinimizer()
-    : getCssNanoMinimizer();
-}
-
-async function getWebpackMinimizers(
-  params: MinimizersConfig,
-): Promise<WebpackPluginInstance[]> {
-  return Promise.all([getJsMinimizer(params), getCssMinimizer(params)]);
-}
-
-async function getRspackMinimizers({
-  currentBundler,
-}: MinimizersConfig): Promise<WebpackPluginInstance[]> {
-  const rspack = getCurrentBundlerAsRspack({currentBundler});
-  const getBrowserslistQueries = await importGetBrowserslistQueries();
-  const browserslistQueries = getBrowserslistQueries();
-  const swcJsMinimizerOptions = await importSwcJsMinimizerOptions();
-
+function getRspackMinimizers(): RspackPluginInstance[] {
   return [
     // See https://rspack.dev/plugins/rspack/swc-js-minimizer-rspack-plugin
     // See https://swc.rs/docs/configuration/minification
     new rspack.SwcJsMinimizerRspackPlugin({
       minimizerOptions: {
         minify: true,
-        ecma: swcJsMinimizerOptions.ecma,
-        ...swcJsMinimizerOptions,
+        ...SwcJsMinimizerOptions,
       },
     }),
     new rspack.LightningCssMinimizerRspackPlugin({
       minimizerOptions: {
-        ...(await importLightningCssMinimizerOptions()),
-        // Not sure why but Rspack takes browserslist queries directly
-        // While LightningCSS targets are normally not browserslist queries
-        // We have to override the option to avoid errors
+        // Rspack takes Browserslist queries directly
+        // While LightningCSS targets are normally not Browserslist queries
         // See https://rspack.dev/plugins/rspack/lightning-css-minimizer-rspack-plugin#minimizeroptions
         // See https://lightningcss.dev/transpilation.html
-        targets: browserslistQueries,
+        targets: getBrowserslistQueries(),
       },
     }),
-  ] as unknown as WebpackPluginInstance[];
+  ];
 }
 
 export async function getMinimizers(
   params: MinimizersConfig,
 ): Promise<WebpackPluginInstance[]> {
   return params.currentBundler.name === 'rspack'
-    ? getRspackMinimizers(params)
-    : getWebpackMinimizers(params);
+    ? // Docusaurus bundler configs are typed with Webpack types
+      (getRspackMinimizers() as unknown as WebpackPluginInstance[])
+    : getWebpackMinimizers();
 }

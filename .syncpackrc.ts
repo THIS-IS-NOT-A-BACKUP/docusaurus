@@ -16,6 +16,7 @@ export default {
     'packages/*/package.json',
     'website/package.json',
     'argos/package.json',
+    'admin/scripts/package.json',
     'packages/create-docusaurus/templates/*/package.json',
   ],
 
@@ -55,26 +56,6 @@ export default {
         '@types/react',
         '@types/react-router-config',
         '@types/react-router-dom',
-      ],
-      isIgnored: true,
-    },
-
-    {
-      label: 'Ignore * internal peerDependencies',
-      packages: [
-        '@docusaurus/core',
-        '@docusaurus/bundler',
-        '@docusaurus/faster',
-
-        // TODO Docusaurus v4: refactor, these peerDeps shouldn't be needed
-        '@docusaurus/plugin-content-blog',
-        '@docusaurus/theme-common',
-      ],
-      dependencyTypes: ['peer'],
-      dependencies: [
-        '@docusaurus/faster',
-        '@docusaurus/plugin-content-docs',
-        '@docusaurus/types',
       ],
       isIgnored: true,
     },

@@ -5,7 +5,5 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-declare module 'postcss-sort-media-queries' {
-  const plugin: import('postcss').PluginCreator<object>;
-  export default plugin;
-}
+export {fs} from './fs';
+export {pathExists, outputFile, readJSON, realpath} from './fsUtils';

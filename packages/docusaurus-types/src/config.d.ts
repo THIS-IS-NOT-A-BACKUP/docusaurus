@@ -24,22 +24,15 @@ export type StorageConfig = {
   namespace: boolean | string;
 };
 
-export type FasterConfig = {
-  swcJsLoader: boolean;
-  swcJsMinimizer: boolean;
-  swcHtmlMinimizer: boolean;
-  lightningCssMinimizer: boolean;
-  mdxCrossCompilerCache: boolean;
-  rspackBundler: boolean;
-  rspackPersistentCache: boolean;
-  gitEagerVcs: boolean;
-};
-
-export type FutureV4Config = {
-  useCssCascadeLayers: boolean;
-  siteStorageNamespacing: boolean;
-  fasterByDefault: boolean;
-  mdx1CompatDisabledByDefault: boolean;
+export type WebpackConfig = {
+  /**
+   * Configuration for alternative JS loaders. "babel" will use the built-in
+   * Babel loader and preset; otherwise, you can provide your custom Webpack
+   * rule set.
+   */
+  // TODO Docusaurus v4
+  //  Use an object type ({isServer}) so that it conforms to jsLoaderFactory
+  jsLoader?: 'babel' | ((isServer: boolean) => RuleSetRule);
 };
 
 // VCS (Version Control System) info about a given change, e.g., a git commit.
@@ -86,19 +79,10 @@ export type VcsPreset =
   | 'git-eager'
   | 'hardcoded'
   | 'disabled'
-  | 'default-v1'
-  | 'default-v2';
+  | 'default'
+  | 'default-v3';
 
 export type FutureConfig = {
-  /**
-   * Turns v4 future flags on
-   */
-  v4: FutureV4Config;
-
-  faster: FasterConfig;
-
-  experimental_vcs: VcsConfig;
-
   /**
    * Docusaurus can work with 2 router types.
    *
@@ -181,6 +165,13 @@ export type DocusaurusConfig = {
    */
   storage: StorageConfig;
   /**
+   * The Version Control System (VCS) implementation used to read file info
+   * (creation/last update date/author).
+   *
+   * @see https://docusaurus.io/docs/api/docusaurus-config#vcs
+   */
+  vcs: VcsConfig;
+  /**
    * Docusaurus future flags and experimental features.
    * Similar to Remix future flags, see https://remix.run/blog/future-flags
    */
@@ -208,14 +199,6 @@ export type DocusaurusConfig = {
    * @default "warn"
    */
   onBrokenAnchors: ReportingSeverity;
-  /**
-   * The behavior of Docusaurus when it detects any broken markdown link.
-   *
-   * @see https://docusaurus.io/docs/api/docusaurus-config#onBrokenMarkdownLinks
-   * @default "warn"
-   */
-  // TODO Docusaurus v4 remove
-  onBrokenMarkdownLinks: ReportingSeverity | undefined;
   /**
    * The behavior of Docusaurus when it detects any [duplicate
    * routes](https://docusaurus.io/docs/creating-pages#duplicate-routes).
@@ -390,18 +373,12 @@ export type DocusaurusConfig = {
    * @default true
    */
   baseUrlIssueBanner: boolean;
-  /** Webpack-related options. */
-  webpack?: {
-    /**
-     * Configuration for alternative JS loaders. "babel" will use the built-in
-     * Babel loader and preset; otherwise, you can provide your custom Webpack
-     * rule set.
-     */
-    // TODO Docusaurus v4
-    //  Use an object type ({isServer}) so that it conforms to jsLoaderFactory
-    //  Eventually deprecate this if swc loader becomes stable?
-    jsLoader?: 'babel' | ((isServer: boolean) => RuleSetRule);
-  };
+  /**
+   * Docusaurus uses Rspack by default.
+   * When provided, Docusaurus uses Webpack and Babel instead.
+   * @deprecated Webpack and Babel support will be removed in Docusaurus v5
+   */
+  webpack?: WebpackConfig;
   /** Markdown-related options. */
   markdown: MarkdownConfig;
 };
@@ -417,13 +394,13 @@ export type Config = Overwrite<
     title: DocusaurusConfig['title'];
     url: DocusaurusConfig['url'];
     baseUrl: DocusaurusConfig['baseUrl'];
-    future?: Overwrite<
-      DeepPartial<FutureConfig>,
-      {
-        v4?: boolean | Partial<FutureV4Config>;
-        faster?: boolean | Partial<FasterConfig>;
-        experimental_vcs?: VcsPreset | VcsConfig | boolean;
-      }
-    >;
+    vcs?: VcsPreset | VcsConfig | boolean;
+    /**
+     * Docusaurus uses Rspack by default.
+     * Use `true` or an object to use Webpack and Babel instead.
+     * @deprecated Webpack and Babel support will be removed in Docusaurus v5
+     */
+    webpack?: boolean | WebpackConfig;
+    future?: DeepPartial<FutureConfig>;
   }
 >;

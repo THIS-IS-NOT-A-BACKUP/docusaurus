@@ -9,13 +9,10 @@ import path from 'node:path';
 import merge from 'webpack-merge';
 import {
   formatStatsErrorMessage,
-  importRspackDevServer,
   printStatsWarnings,
+  RspackDevServer,
 } from '@docusaurus/bundler';
 import logger from '@docusaurus/logger';
-import WebpackDevServer, {
-  type Configuration as DevServerConfig,
-} from 'webpack-dev-server';
 import evalSourceMapMiddleware from '../utils/legacy/evalSourceMapMiddleware';
 import {createPollingOptions} from './watcher';
 import getHttpsConfig from '../../webpack/utils/getHttpsConfig';
@@ -31,6 +28,10 @@ import type {
   Props,
 } from '@docusaurus/types';
 import type {Compiler} from 'webpack';
+import type WebpackDevServer from 'webpack-dev-server';
+import type {Configuration as DevServerConfig} from 'webpack-dev-server';
+import type {Compiler as RspackCompiler} from '@rspack/core';
+import type {Configuration as RspackDevServerConfig} from '@rspack/dev-server';
 import type {OpenUrlContext} from './utils';
 
 // E2E_TEST=true docusaurus start
@@ -148,7 +149,6 @@ async function getStartClientConfig({
   let {clientConfig: config} = await createStartClientConfig({
     props,
     minify,
-    faster: props.siteConfig.future.faster,
     poll,
     configureWebpackUtils,
   });
@@ -169,7 +169,7 @@ export async function createWebpackDevServer({
   props: Props;
   cliOptions: StartCLIOptions;
   openUrlContext: OpenUrlContext;
-}): Promise<WebpackDevServer> {
+}): Promise<WebpackDevServer | RspackDevServer> {
   const configureWebpackUtils = await createConfigureWebpackUtils({
     siteConfig: props.siteConfig,
   });
@@ -211,12 +211,15 @@ async function createDevServer({
   devServerConfig: DevServerConfig;
   compiler: Compiler;
   currentBundler: CurrentBundler;
-}): Promise<WebpackDevServer> {
+}): Promise<WebpackDevServer | RspackDevServer> {
   if (currentBundler.name === 'webpack') {
+    // Imported lazily, only when Webpack is used
+    const {default: WebpackDevServer} = await import('webpack-dev-server');
     return new WebpackDevServer(devServerConfig, compiler);
-  } else {
-    const RspackDevServer = await importRspackDevServer();
-    // @ts-expect-error: different types
-    return new RspackDevServer(devServerConfig, compiler);
   }
+  // Docusaurus bundler configs are typed with Webpack types
+  return new RspackDevServer(
+    devServerConfig as RspackDevServerConfig,
+    compiler as unknown as RspackCompiler,
+  );
 }
